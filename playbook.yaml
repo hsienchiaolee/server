@@ -6,8 +6,7 @@
     # nvidia-driver-version: 525
   
   tasks:
-
-# Sudo Setup
+    # Sudo Setup
     - name: Allow 'sudo' group to have passwordless sudo
       lineinfile:
         path: /etc/sudoers
@@ -16,7 +15,7 @@
         line: '%sudo ALL=(ALL) NOPASSWD: ALL'
         validate: '/usr/sbin/visudo -cf %s'
 
-# User + Key Setup
+    # User + Key Setup
     - name: Create a new regular user with sudo privileges
       user:
         name: "{{ username }}"
@@ -39,7 +38,7 @@
         regexp: '^#?PermitRootLogin'
         line: 'PermitRootLogin prohibit-password'
 
-# Install Packages
+    # Install Packages
     - name: Update apt
       apt:
         upgrade: true
@@ -58,15 +57,15 @@
           - dtach
         state: latest
 
-# Install Nvidia Driver [Optional]
-    # Uncomment and update to desired version to install
+    # Install Nvidia Driver [Optional]
+    # Note: Uncomment and update to desired version to install
     # nvidia-driver.
     # - name: Install Nvidia Driver
     #   apt:
     #     name: "nvidia-driver-{{ nvidia-driver-version }}"
     #     state: latest
 
-# Install Docker
+    # Install Docker
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
