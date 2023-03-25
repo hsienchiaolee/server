@@ -3,7 +3,7 @@
   become: true
   vars:
     username: k
-    # nvidia-driver-version: 510
+    # nvidia-driver-version: 525
   
   tasks:
 
