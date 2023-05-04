@@ -1,0 +1,22 @@
+---
+- name: Update apt cache if needed.
+  apt:
+    update_cache: true
+    cache_valid_time: 86400
+
+- name: Ensure user exists with sudo privilege
+  user:
+    name: "{{ username }}"
+    state: present
+    groups: sudo
+    append: true
+    create_home: true
+    shell: /bin/bash
+
+- name: Allow 'sudo' group to have passwordless sudo
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'

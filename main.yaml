@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: true
+  vars:
+    username: k
+    nvidia_driver_version: 525
+
+  pre_tasks:
+    - name: Import initialization tasks
+      import_tasks: tasks/init.yaml
+    - name: Import system package installation tasks
+      import_tasks: tasks/packages.yaml
+    - name: Import SSH setup tasks
+      import_tasks: tasks/ssh-setup.yaml
+
+  roles:
+    - role: geerlingguy.docker
+      docker_compose_package_state: present
+      docker_users: ['{{ username }}']
+    - role: nvidia.nvidia_driver
+      become: true
+      nvidia_driver_branch: '{{ nvidia_driver_version }}'
+

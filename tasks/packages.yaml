@@ -1,0 +1,14 @@
+---
+- name: Install required system packages
+  apt:
+    name:
+      - avahi-daemon
+      - ca-certificates
+      - curl
+      - dtach
+      - git
+      - gnupg
+      - net-tools
+      - openssh-server
+      - wget
+    state: latest
