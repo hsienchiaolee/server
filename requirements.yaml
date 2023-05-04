@@ -1,0 +1,4 @@
+---
+roles:
+  - name: nvidia.nvidia_driver
+  - name: geerlingguy.docker
