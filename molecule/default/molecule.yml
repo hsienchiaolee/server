@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: instance
+    image: geerlingguy/docker-ubuntu2204-ansible
+    pre_build_image: true
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      all:
+        nvidia_driver_skip_reboot: true
+        docker_service_manage: false
+verifier:
+  name: ansible
